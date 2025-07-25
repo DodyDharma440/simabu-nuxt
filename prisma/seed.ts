@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-import { PrismaClient } from "~/generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();

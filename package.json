@@ -7,15 +7,22 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "prisma": {
     "seed": "esno prisma/seed.ts"
   },
   "dependencies": {
+    "@nuxt/eslint": "1.7.1",
     "@prisma/nuxt": "^0.3.0",
     "@tailwindcss/vite": "^4.1.11",
     "bcrypt": "^6.0.0",
+    "crypto": "^1.0.1",
+    "dayjs": "^1.11.13",
+    "eslint": "^9.0.0",
+    "jose": "^6.0.12",
     "motion-v": "^1.6.1",
     "nuxt": "^3.17.7",
     "tailwindcss": "^4.1.11",
@@ -24,6 +31,8 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
-    "esno": "^4.8.0"
+    "esno": "^4.8.0",
+    "typescript": "^5.8.3",
+    "vite-plugin-eslint2": "^5.0.4"
   }
 }
