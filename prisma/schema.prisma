@@ -1,0 +1,142 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Role {
+  id   Int    @id @default(autoincrement())
+  User User[]
+  name String
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  username  String     @unique
+  password  String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+  role      Role       @relation(fields: [roleId], references: [id])
+  roleId    Int
+  Petugas   Petugas?
+  Mahasiswa Mahasiswa?
+}
+
+model ProgramStudi {
+  id          Int         @id @default(autoincrement())
+  nama        String
+  namaSingkat String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @default(now())
+  Mahasiswa   Mahasiswa[]
+}
+
+model Petugas {
+  id           Int            @id @default(autoincrement())
+  nama         String
+  nip          String         @unique
+  alamat       String?
+  noTelp       String?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @default(now())
+  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       Int            @unique
+  Peminjaman   Peminjaman[]
+  Pengembalian Pengembalian[]
+}
+
+model Mahasiswa {
+  id             Int          @id @default(autoincrement())
+  nama           String
+  nim            String       @unique
+  alamat         String?
+  noTelp         String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now())
+  programStudi   ProgramStudi @relation(fields: [programStudiId], references: [id])
+  programStudiId Int
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         Int          @unique
+  Peminjaman     Peminjaman[]
+}
+
+model Kategori {
+  id        Int      @id @default(autoincrement())
+  nama      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  Buku      Buku[]
+}
+
+model Buku {
+  id               Int                @id @default(autoincrement())
+  judul            String
+  kodeBuku         String             @unique
+  imageUrl         String?
+  penerbit         String
+  tahunTerbit      Int
+  jumlahHalaman    Int
+  penulis          String?
+  nomorRak         Int
+  stok             Int
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @default(now())
+  createdBy        String?
+  updatedBy        String?
+  kategori         Kategori           @relation(fields: [kategoriId], references: [id])
+  kategoriId       Int
+  DetailPeminjaman DetailPeminjaman[]
+}
+
+enum StatusPeminjaman {
+  Pengajuan
+  Diterima
+  Ditolak
+  Selesai
+}
+
+model Peminjaman {
+  id                Int                @id @default(autoincrement())
+  status            StatusPeminjaman   @default(Pengajuan)
+  mahasiswa         Mahasiswa          @relation(fields: [mahasiswaId], references: [id])
+  mahasiswaId       Int
+  petugas           Petugas?           @relation(fields: [petugasId], references: [id])
+  petugasId         Int?
+  periode           String
+  tanggalPeminjaman DateTime?
+  tanggalKembali    DateTime?
+  flagHistory       Boolean?           @default(false)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @default(now())
+  DetailPeminjaman  DetailPeminjaman[]
+  Pengembalian      Pengembalian?
+}
+
+model DetailPeminjaman {
+  id           Int        @id @default(autoincrement())
+  buku         Buku       @relation(fields: [bukuId], references: [id])
+  bukuId       Int
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @default(now())
+  peminjaman   Peminjaman @relation(fields: [peminjamanId], references: [id])
+  peminjamanId Int
+}
+
+model Pengembalian {
+  id                  Int        @id @default(autoincrement())
+  tanggalPengembalian DateTime?
+  petugasPenerima     Petugas?   @relation(fields: [petugasId], references: [id])
+  petugasId           Int?
+  denda               Float?
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @default(now())
+  peminjaman          Peminjaman @relation(fields: [peminjamanId], references: [id])
+  peminjamanId        Int        @unique
+}
