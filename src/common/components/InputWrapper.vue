@@ -26,7 +26,7 @@ provide("isInputError", isError);
     <slot />
     <AnimatePresence>
       <motion.div
-        v-if="slots.error"
+        v-if="slots.error && isError"
         class="flex items-center gap-1 text-red-500 mt-2.5"
         :initial="{ opacity: 0 }"
         :animate="{ opacity: 1 }"

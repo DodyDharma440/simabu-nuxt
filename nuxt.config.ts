@@ -10,6 +10,11 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  modules: ["@prisma/nuxt", "@nuxt/eslint", "motion-v/nuxt"],
+  modules: [
+    "@prisma/nuxt",
+    "@nuxt/eslint",
+    "motion-v/nuxt",
+    "@vee-validate/nuxt",
+  ],
   plugins: ["~/plugins/tw-merge"],
 });
