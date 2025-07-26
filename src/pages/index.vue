@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import AuthContainer from "~/modules/auth/components/AuthContainer.vue";
+</script>
+
 <template>
-  <h1>hello world</h1>
+  <AuthContainer />
 </template>
