@@ -3,6 +3,8 @@ import { ToastifyContainer } from "vue3-toastify";
 </script>
 
 <template>
-  <NuxtPage />
-  <ToastifyContainer />
+  <NuxtLayout>
+    <NuxtPage />
+    <ToastifyContainer />
+  </NuxtLayout>
 </template>

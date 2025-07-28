@@ -15,6 +15,10 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "motion-v/nuxt",
     "@vee-validate/nuxt",
+    "@pinia/nuxt",
   ],
+  pinia: {
+    storesDirs: ["./src/stores/**"],
+  },
   plugins: ["~/plugins/tw-merge", "~/plugins/vue3-toastify"],
 });

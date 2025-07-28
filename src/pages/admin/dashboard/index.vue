@@ -6,11 +6,15 @@ definePageMeta({
   middleware: ["auth"],
 });
 
+const userStore = useUserStore();
+
 const { mutate, isLoading } = useMutation<any, boolean>({
   mutationFn: () => {
+    // @ts-ignore
     return $fetch("/api/auth/logout");
   },
   onSuccess: () => {
+    userStore.$reset();
     navigateTo("/");
   },
 });
@@ -18,11 +22,15 @@ const { mutate, isLoading } = useMutation<any, boolean>({
 const handleLogout = () => {
   mutate({});
 };
+
+const store = useUserStore();
+await callOnce("user-login", () => store.fetchUser());
 </script>
 
 <template>
   <div>
     <p>Dashboard</p>
+    <pre>{{ JSON.stringify(store.userData, null, 2) }}</pre>
     <BaseButton :is-loading="isLoading" @click="handleLogout">
       Logout
     </BaseButton>
