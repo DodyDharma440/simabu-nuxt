@@ -1,6 +1,7 @@
 export default defineNuxtRouteMiddleware((to) => {
   const store = useUserStore();
-  const role = store.userData?.user.role.name.toLowerCase();
+  const { userData } = storeToRefs(store);
+  const role = userData.value?.user.role.name.toLowerCase();
   if (
     ["admin", "petugas"].includes(role ?? "") &&
     to.path.startsWith("/admin")

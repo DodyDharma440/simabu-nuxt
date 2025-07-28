@@ -1,3 +1,6 @@
 <template>
-  <div>Student layout</div>
+  <div>
+    <div>Student layout</div>
+    <slot />
+  </div>
 </template>

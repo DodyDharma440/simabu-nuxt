@@ -2,6 +2,10 @@
 import BaseButton from "~/common/components/BaseButton.vue";
 import { useMutation } from "~/common/composables/mutation";
 
+useHead({
+  title: "Admin Dashboard - Simabu",
+});
+
 definePageMeta({
   middleware: ["auth"],
 });
@@ -22,15 +26,11 @@ const { mutate, isLoading } = useMutation<any, boolean>({
 const handleLogout = () => {
   mutate({});
 };
-
-const store = useUserStore();
-await callOnce("user-login", () => store.fetchUser());
 </script>
 
 <template>
   <div>
     <p>Dashboard</p>
-    <pre>{{ JSON.stringify(store.userData, null, 2) }}</pre>
     <BaseButton :is-loading="isLoading" @click="handleLogout">
       Logout
     </BaseButton>

@@ -1,6 +1,12 @@
+<script setup lang="ts">
+const store = useUserStore();
+await callOnce("user-login", () => store.fetchUser(), { mode: "navigation" });
+</script>
+
 <template>
   <main>
-    <div>ADMIN LAYOUT</div>
+    <p>ADMIN LAYOUT</p>
+    <pre>{{ JSON.stringify(store.userData, null, 2) }}</pre>
     <slot />
   </main>
 </template>

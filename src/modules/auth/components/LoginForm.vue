@@ -33,7 +33,7 @@ const { mutate, isLoading } = useMutation<ILoginInput, { token: string }>({
     });
   },
   onSuccess: () => {
-    navigateTo("/admin/dashboard");
+    window.location.replace("/admin/dashboard");
   },
 });
 
