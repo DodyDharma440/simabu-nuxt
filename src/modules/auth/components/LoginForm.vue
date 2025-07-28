@@ -9,6 +9,7 @@ import InputWrapper from "~/common/components/InputWrapper.vue";
 import PasswordInput from "~/common/components/PasswordInput.vue";
 import TextInput from "~/common/components/TextInput.vue";
 import type { ILoginInput } from "../interfaces";
+import { useMutation } from "~/common/composables/mutation";
 
 const { errors, defineField, handleSubmit } = useForm<ILoginInput>({
   initialValues: {
@@ -23,9 +24,21 @@ const { errors, defineField, handleSubmit } = useForm<ILoginInput>({
 const [username, usernameAttrs] = defineField("username");
 const [password, passwordAttrs] = defineField("password");
 
+const { mutate, isLoading } = useMutation<ILoginInput, { token: string }>({
+  mutationFn: (body) => {
+    // @ts-ignore
+    return $fetch("/api/auth/login", {
+      method: "POST",
+      body,
+    });
+  },
+  onSuccess: () => {
+    navigateTo("/admin/dashboard");
+  },
+});
+
 const onSubmit = handleSubmit((values) => {
-  // eslint-disable-next-line no-console
-  console.log("🚀 ~ values:", values);
+  mutate(values);
 });
 </script>
 
@@ -87,7 +100,7 @@ const onSubmit = handleSubmit((values) => {
       </NuxtLink>
     </div>
 
-    <BaseButton type="submit">Login</BaseButton>
+    <BaseButton type="submit" :is-loading="isLoading">Login</BaseButton>
   </form>
 
   <hr class="border-gray-200" />

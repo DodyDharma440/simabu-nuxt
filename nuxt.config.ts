@@ -16,5 +16,5 @@ export default defineNuxtConfig({
     "motion-v/nuxt",
     "@vee-validate/nuxt",
   ],
-  plugins: ["~/plugins/tw-merge"],
+  plugins: ["~/plugins/tw-merge", "~/plugins/vue3-toastify"],
 });

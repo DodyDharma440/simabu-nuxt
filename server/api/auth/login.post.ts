@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
 
   const body = await readBody(event);
 
-  const { username, password } = body as ILoginInput;
+  const { username, password, remember } = body as ILoginInput;
   const user = await prisma.user.findUnique({
     where: { username },
     include: { role: true },
@@ -44,7 +44,9 @@ export default defineEventHandler(async (event) => {
 
   setCookie(event, process.env.AUTH_COOKIE_NAME!, token, {
     httpOnly: true,
-    expires: dayjs().add(1, "day").toDate(),
+    expires: dayjs()
+      .add(remember ? 30 : 1, "day")
+      .toDate(),
     path: "/",
   });
 
