@@ -1,9 +1,15 @@
 <script setup lang="ts">
+import type { InputHTMLAttributes } from "vue";
+
 export interface InputSlots {
   leading(props?: any): any;
   trailing(props?: any): any;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {}
+
+defineProps<TextInputProps>();
 const model = defineModel<any>();
 const slots = defineSlots<InputSlots>();
 const isError = inject<boolean>("isInputError");

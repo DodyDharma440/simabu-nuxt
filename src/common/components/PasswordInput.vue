@@ -2,7 +2,12 @@
 import { EyeIcon, EyeSlashIcon } from "@heroicons/vue/24/outline";
 import type { InputSlots } from "./TextInput.vue";
 import TextInput from "./TextInput.vue";
+import type { InputHTMLAttributes } from "vue";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface PasswordInputProps extends /* @vue-ignore */ InputHTMLAttributes {}
+
+defineProps<PasswordInputProps>();
 const slots = defineSlots<Pick<InputSlots, "leading">>();
 
 const showPassword = ref(false);
@@ -13,7 +18,7 @@ const handleToggleShow = () => {
 </script>
 
 <template>
-  <TextInput :type="showPassword ? 'text' : 'password'">
+  <TextInput :type="showPassword ? 'text' : 'password'" v-bind="$attrs">
     <template v-if="slots.leading" #leading>
       <slot name="leading" />
     </template>

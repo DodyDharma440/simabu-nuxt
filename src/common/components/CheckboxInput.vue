@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { CheckIcon } from "@heroicons/vue/16/solid";
+import type { InputHTMLAttributes } from "vue";
 
-type CheckboxInputProps = {
+interface CheckboxInputProps extends /* @vue-ignore */ InputHTMLAttributes {
   id: string;
-};
+}
 
 const model = defineModel<any>();
 

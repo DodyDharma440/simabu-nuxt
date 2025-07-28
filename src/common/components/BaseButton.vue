@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { motion } from "motion-v";
+import type { ButtonHTMLAttributes } from "vue";
 
 type ButtonSlots = {
   leftIcon(): any;
@@ -10,12 +11,12 @@ type ButtonSlots = {
 type ButtonColor = "default" | "primary" | "secondary";
 type ButtonVariant = "solid" | "outline" | "light" | "subtle";
 
-type ButtonProps = {
+interface ButtonProps extends /* @vue-ignore */ ButtonHTMLAttributes {
   color?: ButtonColor;
   variant?: ButtonVariant;
   isLoading?: boolean;
   loaderPosition?: "left" | "right";
-};
+}
 
 const colorVariantsClasses: Record<`${ButtonColor}-${ButtonVariant}`, string> =
   {
