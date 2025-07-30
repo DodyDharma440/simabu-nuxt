@@ -10,6 +10,7 @@ definePageMeta({
   middleware: ["auth"],
 });
 
+const route = useRoute();
 const userStore = useUserStore();
 
 const { mutate, isLoading } = useMutation<any, boolean>({
@@ -31,6 +32,8 @@ const handleLogout = () => {
 <template>
   <div>
     <p>Dashboard</p>
+    <pre>{{ JSON.stringify(route, null, 2) }}</pre>
+
     <BaseButton :is-loading="isLoading" @click="handleLogout">
       Logout
     </BaseButton>

@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     "motion-v/nuxt",
     "@vee-validate/nuxt",
     "@pinia/nuxt",
+    "@nuxt/image",
   ],
   pinia: {
     storesDirs: ["./src/stores/**"],

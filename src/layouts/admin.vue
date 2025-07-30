@@ -1,12 +1,16 @@
 <script setup lang="ts">
-const store = useUserStore();
-await callOnce("user-login", () => store.fetchUser(), { mode: "navigation" });
+import AdminNavbar from "~/common/layouts/AdminNavbar.vue";
+import AdminSidebar from "~/common/layouts/AdminSidebar.vue";
 </script>
 
 <template>
   <main>
-    <p>ADMIN LAYOUT</p>
-    <pre>{{ JSON.stringify(store.userData, null, 2) }}</pre>
-    <slot />
+    <AdminSidebar />
+    <div class="ml-[280px]">
+      <AdminNavbar />
+      <div class="p-6">
+        <slot />
+      </div>
+    </div>
   </main>
 </template>
