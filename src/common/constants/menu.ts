@@ -55,9 +55,14 @@ export const adminMenus: { title: string; items: ISidebarMenu[] }[] = [
     items: [
       {
         label: "Logout",
-        path: "/logout",
         iconName: ArrowLeftStartOnRectangleIcon,
         roles: ["Admin", "Petugas"],
+        onClick: async () => {
+          const userStore = useUserStore();
+          await $fetch("/api/auth/logout");
+          userStore.$reset();
+          navigateTo("/");
+        },
       },
     ],
   },

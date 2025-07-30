@@ -6,7 +6,7 @@ import AdminSidebar from "~/common/layouts/AdminSidebar.vue";
 <template>
   <main>
     <AdminSidebar />
-    <div class="ml-[280px]">
+    <div class="ml-[280px] pt-[72px]">
       <AdminNavbar />
       <div class="p-6">
         <slot />

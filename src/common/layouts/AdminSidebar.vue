@@ -1,24 +1,15 @@
 <script setup lang="ts">
 import UserAvatar from "../components/UserAvatar.vue";
 import { adminMenus } from "../constants/menu";
-import type { ISidebarMenu } from "../interfaces/menu";
+import SidebarItem from "./SidebarItem.vue";
 
-const route = useRoute();
 const userStore = useUserStore();
-
 const { userData } = storeToRefs(userStore);
-
-const isActive = (item: ISidebarMenu) => {
-  return (
-    item.path === route.path ||
-    item.pathnames?.includes(route.name?.toString() ?? "")
-  );
-};
 </script>
 
 <template>
-  <div
-    class="fixed inset-y-0 left-0 w-[280px] bg-gray-900 dark:bg-slate-800 text-white flex flex-col"
+  <aside
+    class="fixed inset-y-0 left-0 w-[280px] bg-gray-900 text-white flex flex-col"
   >
     <NuxtLink to="/admin/dashboard">
       <div class="flex items-center gap-4 px-6 pb-6 pt-8">
@@ -29,7 +20,7 @@ const isActive = (item: ISidebarMenu) => {
       </div>
     </NuxtLink>
 
-    <div class="flex-1 p-6">
+    <div class="flex-1 p-6 overflow-auto">
       <div
         v-for="({ title, items }, index) in adminMenus"
         :key="index"
@@ -38,15 +29,15 @@ const isActive = (item: ISidebarMenu) => {
         <h3 class="text-gray-300 mb-4 text-sm">{{ title }}</h3>
         <ul class="flex flex-col gap-2">
           <li v-for="menu in items" :key="menu.path">
-            <NuxtLink
-              :to="menu.path"
-              class="px-4 py-3 rounded-md hover:bg-white/5 transition-all duration-300 flex items-center gap-3 text-gray-400"
-              :class="{ 'bg-white/10 text-white': isActive(menu) }"
+            <button
+              v-if="menu.onClick"
+              class="w-full cursor-pointer"
+              @click="menu.onClick"
             >
-              <component :is="menu.iconName" class="size-6"></component>
-              <span>
-                {{ menu.label }}
-              </span>
+              <SidebarItem :item="menu" />
+            </button>
+            <NuxtLink v-else :to="menu.path">
+              <SidebarItem :item="menu" />
             </NuxtLink>
           </li>
         </ul>
@@ -63,5 +54,5 @@ const isActive = (item: ISidebarMenu) => {
         </div>
       </div>
     </div>
-  </div>
+  </aside>
 </template>
