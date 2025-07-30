@@ -7,6 +7,7 @@ export interface IUserRole extends BasicData {
 export interface IUser extends BasicData {
   username: string;
   role: IUserRole;
+  roleId?: string;
 }
 
 export interface IUserStaff {
@@ -25,8 +26,29 @@ export interface IUserStudent {
   noTelp: string | null;
   userId: number;
   user: Omit<IUser, "createdAt" | "updatedAt">;
+  programStudiId: number;
+  programStudi?: IStudyProgram;
 }
 
 export interface IUserStore {
   user: IUser;
+}
+
+export interface IStudyProgram extends BasicData {
+  nama: string;
+  namaSingkat: string;
+}
+
+export interface IUserStaffInput
+  extends Omit<IUserStaff, keyof BasicData | "userId" | "user">,
+    Pick<IUser, "username" | "roleId"> {
+  password?: string;
+}
+
+export interface IUserStudentInput
+  extends Omit<
+    IUserStudent,
+    keyof BasicData | "userId" | "user" | "programStudi"
+  > {
+  password?: string;
 }
