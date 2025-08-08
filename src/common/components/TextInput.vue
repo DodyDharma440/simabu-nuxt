@@ -27,10 +27,11 @@ const isError = inject<boolean>("isInputError");
     <input
       v-model="model"
       v-tw-merge
-      class="bg-white rounded-md border border-gray-200 pl-5 pr-5 py-3 focus:outline-0 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 flex-1"
+      class="bg-white dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-600 pl-5 pr-5 py-3 focus:outline-0 focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-800 focus:border-indigo-500 dark:focus:border-indigo-800 transition-all duration-200 flex-1"
       :class="{
         'pl-10': slots.leading,
-        'border-red-500 focus:border-red-500 focus:ring-red-500': isError,
+        'border-red-500 focus:border-red-500 focus:ring-red-600 dark:border-red-600 dark:focus:border-red-600 dark:focus:ring-red-600':
+          isError,
       }"
       v-bind="$attrs"
     />

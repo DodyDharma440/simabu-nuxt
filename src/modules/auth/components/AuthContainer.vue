@@ -3,7 +3,9 @@ import LoginForm from "./LoginForm.vue";
 </script>
 
 <template>
-  <div class="bg-gradient-to-r from-indigo-600 to-indigo-400">
+  <div
+    class="bg-gradient-to-r from-indigo-600 to-indigo-400 dark:from-indigo-800 dark:to-indigo-600"
+  >
     <div
       class="grid grid-cols-12 gap-6 container mx-auto w-full h-screen items-center"
     >
